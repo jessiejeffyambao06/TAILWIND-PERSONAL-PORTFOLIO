@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Personal Portfolio</title>
   <script src="https://cdn.tailwindcss.com"></script>
+
   <script>
     tailwind.config = {
       theme: {
@@ -13,25 +14,26 @@
             sans: ["ui-sans-serif","system-ui","Segoe UI","Roboto","Helvetica","Arial","Apple Color Emoji","Segoe UI Emoji"]
           },
           keyframes: {
-            floaty: { "0%,100%": { transform: "translateY(0)" }, "50%": { transform: "translateY(-7px)" } },
-            shimmer: { "0%": { transform: "translateX(-45%)" }, "100%": { transform: "translateX(145%)" } },
-            glow: { "0%,100%": { opacity: .35 }, "50%": { opacity: .8 } },
-            marqueeR: { "0%": { transform: "translateX(-50%)" }, "100%": { transform: "translateX(0%)" } } // moves RIGHT
+            floaty: { "0%,100%": { transform: "translateY(0)" }, "50%": { transform: "translateY(-8px)" } },
+            shimmer: { "0%": { transform: "translateX(-55%)" }, "100%": { transform: "translateX(155%)" } },
+            glow: { "0%,100%": { opacity: .30 }, "50%": { opacity: .85 } },
+            marqueeR: { "0%": { transform: "translateX(-50%)" }, "100%": { transform: "translateX(0%)" } }
           },
           animation: {
             floaty: "floaty 6.5s ease-in-out infinite",
-            shimmer: "shimmer 2.2s linear infinite",
-            glow: "glow 3.6s ease-in-out infinite",
-            marqueeR: "marqueeR 26s linear infinite"
+            shimmer: "shimmer 2.1s linear infinite",
+            glow: "glow 3.8s ease-in-out infinite",
+            marqueeR: "marqueeR 22s linear infinite"
           },
           boxShadow: {
-            soft: "0 18px 60px rgba(0,0,0,0.55)",
-            neon: "0 0 0 1px rgba(59,130,246,0.20), 0 16px 70px rgba(99,102,241,0.18)"
+            soft: "0 18px 60px rgba(0,0,0,0.58)",
+            neon: "0 0 0 1px rgba(59,130,246,0.20), 0 18px 80px rgba(99,102,241,0.16)"
           }
         }
       }
     }
   </script>
+
   <style>
     .no-scrollbar::-webkit-scrollbar{display:none;}
     .no-scrollbar{ -ms-overflow-style:none; scrollbar-width:none; }
@@ -39,9 +41,24 @@
     /* Pause marquee on hover */
     .marquee:hover .marquee-track { animation-play-state: paused; }
 
-    /* ✅ FIX: Prevent overlap / stacking by disabling shrink */
-    .stack-card{ flex: 0 0 auto; white-space: nowrap; }
-    .stack-card img{ flex: 0 0 auto; }
+    /* Edge fade for marquee */
+    .edge-fade::before,
+    .edge-fade::after{
+      content:"";
+      position:absolute;
+      top:0; bottom:0;
+      width:72px;
+      pointer-events:none;
+      z-index:10;
+    }
+    .edge-fade::before{
+      left:0;
+      background: linear-gradient(to right, rgba(9,9,11,0.95), rgba(9,9,11,0));
+    }
+    .edge-fade::after{
+      right:0;
+      background: linear-gradient(to left, rgba(9,9,11,0.95), rgba(9,9,11,0));
+    }
 
     /* Respect reduced motion */
     @media (prefers-reduced-motion: reduce) {
@@ -52,128 +69,120 @@
 </head>
 
 <body class="min-h-screen bg-zinc-950 text-zinc-100 selection:bg-fuchsia-500/25 selection:text-white">
-  <!-- More colorful tech background -->
+  <!-- Background: dark but more alive + accents -->
   <div aria-hidden="true" class="pointer-events-none fixed inset-0 -z-10 overflow-hidden">
-    <!-- grid -->
+    <!-- subtle grid -->
     <div class="absolute inset-0 opacity-[0.10]
-      [background-image:linear-gradient(to_right,rgba(244,244,245,0.20)_1px,transparent_1px),linear-gradient(to_bottom,rgba(244,244,245,0.20)_1px,transparent_1px)]
-      bg-[size:56px_56px]"></div>
+      [background-image:linear-gradient(to_right,rgba(244,244,245,0.22)_1px,transparent_1px),linear-gradient(to_bottom,rgba(244,244,245,0.22)_1px,transparent_1px)]
+      bg-[size:58px_58px]"></div>
 
-    <!-- vibrant blobs -->
-    <div class="absolute -top-40 left-1/2 h-[48rem] w-[48rem] -translate-x-1/2 rounded-full bg-blue-500/16 blur-3xl animate-glow"></div>
-    <div class="absolute -bottom-52 left-[-14rem] h-[40rem] w-[40rem] rounded-full bg-fuchsia-500/14 blur-3xl animate-glow"></div>
-    <div class="absolute -bottom-48 right-[-12rem] h-[38rem] w-[38rem] rounded-full bg-amber-500/12 blur-3xl animate-glow"></div>
-    <div class="absolute top-[20%] right-[8%] h-[22rem] w-[22rem] rounded-full bg-emerald-500/10 blur-3xl animate-glow"></div>
+    <!-- colorful blobs -->
+    <div class="absolute -top-44 left-1/2 h-[52rem] w-[52rem] -translate-x-1/2 rounded-full bg-blue-500/16 blur-3xl animate-glow"></div>
+    <div class="absolute -bottom-56 left-[-16rem] h-[44rem] w-[44rem] rounded-full bg-fuchsia-500/14 blur-3xl animate-glow"></div>
+    <div class="absolute -bottom-52 right-[-14rem] h-[42rem] w-[42rem] rounded-full bg-amber-500/12 blur-3xl animate-glow"></div>
+
+    <!-- extra accents: green / red / mustard -->
+    <div class="absolute top-[14%] left-[8%] h-[22rem] w-[22rem] rounded-full bg-emerald-500/10 blur-3xl animate-glow"></div>
+    <div class="absolute top-[36%] right-[6%] h-[18rem] w-[18rem] rounded-full bg-rose-500/10 blur-3xl animate-glow"></div>
+    <div class="absolute bottom-[16%] left-[26%] h-[16rem] w-[16rem] rounded-full bg-yellow-400/10 blur-3xl animate-glow"></div>
 
     <!-- vignette -->
-    <div class="absolute inset-0 bg-[radial-gradient(ellipse_at_center,transparent_32%,rgba(9,9,11,0.96)_78%)]"></div>
+    <div class="absolute inset-0 bg-[radial-gradient(ellipse_at_center,transparent_28%,rgba(9,9,11,0.97)_78%)]"></div>
 
     <!-- scanline -->
-    <div class="absolute inset-0 opacity-[0.06] [background-image:linear-gradient(to_bottom,transparent,rgba(255,255,255,0.24),transparent)] bg-[length:100%_7px]"></div>
+    <div class="absolute inset-0 opacity-[0.06] [background-image:linear-gradient(to_bottom,transparent,rgba(255,255,255,0.26),transparent)] bg-[length:100%_7px]"></div>
   </div>
 
-  <!-- Navbar -->
-  <header class="sticky top-0 z-50 border-b border-white/10 bg-zinc-950/60 backdrop-blur-xl">
+  <!-- Navbar (NO JS) -->
+  <header class="sticky top-0 z-50 border-b border-white/10 bg-zinc-950/70 backdrop-blur-xl">
     <nav class="mx-auto flex max-w-6xl items-center justify-between px-4 py-3 md:px-6">
       <a href="#home" class="group inline-flex items-center gap-3">
-        <span class="relative grid h-11 w-11 place-items-center rounded-2xl border border-white/10 bg-white/[0.05] overflow-hidden shadow-neon">
-          <span aria-hidden="true" class="absolute inset-0 bg-gradient-to-br from-blue-500/26 via-fuchsia-500/10 to-amber-500/14"></span>
-          <span aria-hidden="true" class="absolute -left-1/2 top-0 h-full w-1/2 bg-white/12 rotate-12 animate-shimmer"></span>
-          <span class="relative text-xs font-black tracking-[0.25em] text-blue-200">JJ</span>
-        </span>
-        <span class="text-sm font-semibold tracking-wide text-zinc-100">
-          Jessie Jeff <span class="text-blue-300">•</span> Portfolio
+
+        <span class="text-xl font-semibold tracking-wide text-zinc-100">
+          Personal <span class="text-blue-300">•</span> Portfolio
         </span>
       </a>
 
+      <!-- Desktop links -->
       <div class="hidden items-center gap-1 md:flex">
-        <a class="rounded-xl px-3 py-2 text-sm text-zinc-300 hover:bg-white/5 hover:text-white" href="#stack">Tech Stack</a>
-        <a class="rounded-xl px-3 py-2 text-sm text-zinc-300 hover:bg-white/5 hover:text-white" href="#about">About</a>
-        <a class="rounded-xl px-3 py-2 text-sm text-zinc-300 hover:bg-white/5 hover:text-white" href="#certificates">Certificates</a>
-        <a class="rounded-xl px-3 py-2 text-sm text-zinc-300 hover:bg-white/5 hover:text-white" href="#projects">Projects</a>
-        <a class="rounded-xl px-3 py-2 text-sm text-zinc-300 hover:bg-white/5 hover:text-white" href="#contact">Contact</a>
+        <a class="rounded-xl px-3 py-2 text-m text-zinc-300 hover:bg-white/5 hover:text-white" href="#stack">Tech Stack</a>
+        <a class="rounded-xl px-3 py-2 text-m text-zinc-300 hover:bg-white/5 hover:text-white" href="#experience">About</a>
+        <a class="rounded-xl px-3 py-2 text-m text-zinc-300 hover:bg-white/5 hover:text-white" href="#services">Services</a>
+        <a class="rounded-xl px-3 py-2 text-m text-zinc-300 hover:bg-white/5 hover:text-white" href="#certificates">Certificates</a>
+        <a class="rounded-xl px-3 py-2 text-m text-zinc-300 hover:bg-white/5 hover:text-white" href="#projects">Projects</a>
+        <a class="rounded-xl px-3 py-2 text-m text-zinc-300 hover:bg-white/5 hover:text-white" href="#contact">Contact</a>
       </div>
 
+      <!-- Desktop CTA (Resume) -->
       <div class="hidden md:flex">
-        <a href="#contact" class="relative inline-flex items-center gap-2 rounded-2xl border border-blue-400/25 bg-blue-500/12 px-4 py-2 text-sm font-semibold text-blue-200 hover:bg-blue-500/18 overflow-hidden">
+        <a href="#resume"
+          class="relative inline-flex items-center gap-2 rounded-2xl border border-fuchsia-400/25 bg-fuchsia-500/12 px-4 py-2 text-xl font-semibold text-fuchsia-200 hover:bg-fuchsia-500/18 overflow-hidden">
           <span aria-hidden="true" class="absolute -left-1/2 top-0 h-full w-1/2 bg-white/12 rotate-12 animate-shimmer"></span>
-          <span class="relative">Let’s Work</span>
-          <span class="relative text-blue-300">→</span>
+          <span class="relative">Resume</span>
+          <span class="relative text-fuchsia-200/80">→</span>
         </a>
       </div>
 
-      <button id="menuBtn"
-        class="md:hidden inline-flex items-center justify-center rounded-2xl border border-white/10 bg-white/[0.05] px-3 py-2 text-sm text-zinc-100 hover:bg-white/10"
-        aria-expanded="false" aria-controls="mobileMenu">
+      <!-- Mobile hamburger (checkbox hack) -->
+      <input id="navToggle" type="checkbox" class="peer hidden" />
+      <label for="navToggle"
+        class="md:hidden inline-flex cursor-pointer items-center justify-center rounded-2xl border border-white/10 bg-white/[0.05] px-3 py-2 text-sm text-zinc-100 hover:bg-white/10">
         Menu
-      </button>
+      </label>
     </nav>
 
-    <div id="mobileMenu" class="md:hidden hidden border-t border-white/10 bg-zinc-950/70 backdrop-blur-xl">
+    <!-- Mobile menu -->
+    <div class="md:hidden hidden peer-checked:block border-t border-white/10 bg-zinc-950/75 backdrop-blur-xl">
       <div class="mx-auto max-w-6xl px-4 py-3">
         <div class="grid gap-2">
           <a class="rounded-xl px-3 py-2 text-sm text-zinc-300 hover:bg-white/5 hover:text-white" href="#stack">Tech Stack</a>
-          <a class="rounded-xl px-3 py-2 text-sm text-zinc-300 hover:bg-white/5 hover:text-white" href="#about">About</a>
+          <a class="rounded-xl px-3 py-2 text-sm text-zinc-300 hover:bg-white/5 hover:text-white" href="#experience">Experience</a>
+          <a class="rounded-xl px-3 py-2 text-sm text-zinc-300 hover:bg-white/5 hover:text-white" href="#services">Services</a>
           <a class="rounded-xl px-3 py-2 text-sm text-zinc-300 hover:bg-white/5 hover:text-white" href="#certificates">Certificates</a>
           <a class="rounded-xl px-3 py-2 text-sm text-zinc-300 hover:bg-white/5 hover:text-white" href="#projects">Projects</a>
           <a class="rounded-xl px-3 py-2 text-sm text-zinc-300 hover:bg-white/5 hover:text-white" href="#contact">Contact</a>
+          <a class="rounded-xl px-3 py-2 text-sm text-fuchsia-200 hover:bg-white/5" href="#resume">Resume</a>
         </div>
       </div>
     </div>
   </header>
 
-  <main id="home" class="mx-auto max-w-6xl px-4 py-12 md:px-6 md:py-16">
-    <!-- Hero -->
+  <main id="home" class="mx-auto max-w-6xl px-4 py-10 md:px-6 md:py-12">
+
+    <!-- HERO -->
     <section class="grid items-center gap-10 lg:grid-cols-2">
       <div class="space-y-7">
-        <div class="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/[0.05] px-4 py-2 text-xs text-zinc-300">
-          <span class="h-2 w-2 rounded-full bg-blue-400 shadow-[0_0_20px_rgba(59,130,246,0.65)]"></span>
-          <span>Open for internship / freelance</span>
-          <span class="ml-1 rounded-full border border-fuchsia-400/25 bg-fuchsia-500/12 px-2 py-0.5 text-[10px] font-semibold text-fuchsia-200">Techy</span>
-        </div>
+       
 
-        <h1 class="text-4xl font-extrabold tracking-tight sm:text-5xl lg:text-6xl">
+        <h1 class="text-[2.65rem] leading-[1.02] font-black tracking-tight sm:text-5xl sm:leading-[1.02] lg:text-6xl">
           Hi, I’m
           <span class="text-transparent bg-clip-text bg-gradient-to-r from-blue-300 via-fuchsia-200 to-amber-200">Jessie Jeff</span>.
           <br class="hidden sm:block" />
-          I build <span class="text-zinc-200">clean</span> & <span class="text-zinc-200">responsive</span> systems.
+          I build <span class="text-zinc-100">clean</span> & <span class="text-zinc-100">responsive</span> systems.
         </h1>
 
         <p class="max-w-xl text-base leading-relaxed text-zinc-300 sm:text-lg">
           Incoming 4th-year IT student. I craft modern web UI, dashboards, and CRUD apps with a premium minimalist look.
         </p>
 
-        <div class="flex flex-wrap gap-3">
-          <a href="#projects" class="inline-flex items-center justify-center rounded-2xl bg-white px-6 py-3 text-sm font-semibold text-zinc-900 hover:bg-zinc-100">
-            View Projects
-          </a>
-          <a href="#contact" class="inline-flex items-center justify-center rounded-2xl border border-white/10 bg-white/[0.05] px-6 py-3 text-sm font-semibold text-white hover:bg-white/10">
-            Contact Me
-          </a>
-          <a href="#" class="inline-flex items-center justify-center rounded-2xl border border-white/10 bg-transparent px-6 py-3 text-sm font-semibold text-zinc-300 hover:bg-white/5">
-            Download CV
-          </a>
-        </div>
-
-        <!-- ✅ REMOVED CHIPS (Frontend/Backend/UI/UX/Databases) -->
       </div>
 
       <!-- Profile card -->
       <div class="relative">
-        <div class="absolute -inset-1 rounded-[2rem] bg-gradient-to-r from-blue-500/26 via-fuchsia-500/10 to-amber-500/16 blur-2xl"></div>
+        <div class="absolute -inset-1 rounded-[2.2rem] bg-gradient-to-r from-blue-500/28 via-fuchsia-500/12 to-amber-500/18 blur-2xl"></div>
 
-        <div class="relative rounded-[2rem] border border-white/10 bg-white/[0.05] p-6 sm:p-7 backdrop-blur-xl shadow-soft">
-          <div class="flex items-center justify-between">
+        <div class="relative rounded-[2.2rem] border border-white/10 bg-white/[0.05] p-6 sm:p-7 backdrop-blur-xl shadow-soft">
+          <div class="flex items-center justify-between gap-4">
             <div class="space-y-1">
               <p class="text-xs text-zinc-400">Profile</p>
-              <p class="text-base font-semibold">Full Stack / Web Developer</p>
+              <p class="text-base font-semibold">IT Support Specialist / Front-End Web Developer</p>
             </div>
-            <span class="rounded-full border border-white/10 bg-white/[0.05] px-3 py-1 text-xs text-zinc-300">PH • Remote</span>
+            <span class="shrink-0 rounded-full border border-white/10 bg-white/[0.05] px-3 py-1 text-xs text-zinc-300">PH • On-Site</span>
           </div>
 
           <div class="mt-6 grid gap-6 sm:grid-cols-[152px_1fr] sm:items-center">
             <div class="relative">
-              <div class="absolute -inset-1 rounded-3xl bg-gradient-to-r from-blue-500/24 to-amber-500/14 blur-xl"></div>
+              <div class="absolute -inset-1 rounded-3xl bg-gradient-to-r from-emerald-500/18 via-blue-500/14 to-rose-500/16 blur-xl"></div>
               <img
                 src="https://images.unsplash.com/photo-1520975916090-3105956dac38?q=80&w=600&auto=format&fit=crop"
                 alt="Profile photo"
@@ -197,6 +206,14 @@
               <div class="rounded-3xl border border-white/10 bg-white/[0.05] p-4">
                 <p class="text-xs text-zinc-400">Currently learning</p>
                 <p class="mt-1 text-base font-semibold text-blue-200">React • Tailwind • APIs</p>
+
+                <div class="mt-3 h-px w-full bg-gradient-to-r from-transparent via-white/10 to-transparent"></div>
+
+                <div class="mt-3 flex flex-wrap gap-2 text-xs">
+                  <span class="rounded-full border border-emerald-400/25 bg-emerald-500/10 px-3 py-1 text-emerald-200">Build</span>
+                  <span class="rounded-full border border-rose-400/25 bg-rose-500/10 px-3 py-1 text-rose-200">Ship</span>
+                  <span class="rounded-full border border-yellow-400/25 bg-yellow-500/10 px-3 py-1 text-yellow-200">Improve</span>
+                </div>
               </div>
             </div>
           </div>
@@ -210,262 +227,574 @@
       </div>
     </section>
 
-    <!-- ✅ Tech Stack Marquee (NO title/notes + NO overlap + only your stack) -->
-    <section id="stack" class="mt-14 scroll-mt-24">
-      <div class="marquee relative mt-6 overflow-hidden rounded-[2rem] border border-white/10 bg-white/[0.04] p-4 sm:p-5 shadow-neon">
-        <!-- edge fades -->
-        <div aria-hidden="true" class="pointer-events-none absolute inset-y-0 left-0 w-16 bg-gradient-to-r from-zinc-950/85 to-transparent"></div>
-        <div aria-hidden="true" class="pointer-events-none absolute inset-y-0 right-0 w-16 bg-gradient-to-l from-zinc-950/85 to-transparent"></div>
-
-        <!-- Track (duplicate content to loop smoothly) -->
-        <div class="marquee-track flex flex-nowrap w-[200%] items-center gap-3 sm:gap-4 animate-marqueeR">
-
-          <!-- Set A -->
-          <div class="flex w-1/2 flex-nowrap items-center gap-3 sm:gap-4">
-            <div class="stack-card flex items-center gap-3 rounded-2xl border border-white/10 bg-white/[0.05] px-5 py-3">
-              <img class="h-7 w-7" alt="HTML5" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/html5/html5-original.svg">
-              <span class="text-sm font-semibold text-zinc-200">HTML</span>
+    <!-- TECH STACK MARQUEE (no overlap) -->
+    <section id="stack" class="mt-10 scroll-mt-24">
+      <div class="relative edge-fade marquee overflow-hidden rounded-[2.2rem] border border-white/10 bg-white/[0.04] p-4 sm:p-5 shadow-neon">
+        <div class="marquee-track flex w-[200%] items-center gap-3 sm:gap-4 animate-marqueeR">
+          <!-- Group A -->
+          <div class="flex shrink-0 w-max items-center gap-3 sm:gap-4 pr-4">
+            <!-- card -->
+            <div class="shrink-0 min-w-[150px] sm:min-w-[170px] rounded-2xl border border-white/10 bg-white/[0.05] px-4 py-3">
+              <div class="flex items-center gap-3">
+                <span class="grid h-9 w-9 place-items-center rounded-xl border border-blue-400/25 bg-blue-500/10">
+                  <img class="h-6 w-6" alt="HTML5" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/html5/html5-original.svg">
+                </span>
+                <span class="whitespace-nowrap text-sm font-semibold text-zinc-200">HTML</span>
+              </div>
             </div>
 
-            <div class="stack-card flex items-center gap-3 rounded-2xl border border-white/10 bg-white/[0.05] px-5 py-3">
-              <img class="h-7 w-7" alt="CSS3" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/css3/css3-original.svg">
-              <span class="text-sm font-semibold text-zinc-200">CSS</span>
+            <div class="shrink-0 min-w-[150px] sm:min-w-[170px] rounded-2xl border border-white/10 bg-white/[0.05] px-4 py-3">
+              <div class="flex items-center gap-3">
+                <span class="grid h-9 w-9 place-items-center rounded-xl border border-emerald-400/25 bg-emerald-500/10">
+                  <img class="h-6 w-6" alt="CSS3" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/css3/css3-original.svg">
+                </span>
+                <span class="whitespace-nowrap text-sm font-semibold text-zinc-200">CSS</span>
+              </div>
             </div>
 
-            <div class="stack-card flex items-center gap-3 rounded-2xl border border-white/10 bg-white/[0.05] px-5 py-3">
-              <img class="h-7 w-7" alt="JavaScript" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg">
-              <span class="text-sm font-semibold text-zinc-200">JavaScript</span>
+            <div class="shrink-0 min-w-[160px] sm:min-w-[180px] rounded-2xl border border-white/10 bg-white/[0.05] px-4 py-3">
+              <div class="flex items-center gap-3">
+                <span class="grid h-9 w-9 place-items-center rounded-xl border border-yellow-400/25 bg-yellow-500/10">
+                  <img class="h-6 w-6" alt="JavaScript" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg">
+                </span>
+                <span class="whitespace-nowrap text-sm font-semibold text-zinc-200">JavaScript</span>
+              </div>
             </div>
 
-            <div class="stack-card flex items-center gap-3 rounded-2xl border border-white/10 bg-white/[0.05] px-5 py-3">
-              <img class="h-7 w-7" alt="Tailwind" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/tailwindcss/tailwindcss-original.svg">
-              <span class="text-sm font-semibold text-zinc-200">Tailwind</span>
+            <div class="shrink-0 min-w-[170px] sm:min-w-[190px] rounded-2xl border border-white/10 bg-white/[0.05] px-4 py-3">
+              <div class="flex items-center gap-3">
+                <span class="grid h-9 w-9 place-items-center rounded-xl border border-cyan-400/25 bg-cyan-500/10">
+                  <img class="h-6 w-6" alt="Tailwind" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/tailwindcss/tailwindcss-original.svg">
+                </span>
+                <span class="whitespace-nowrap text-sm font-semibold text-zinc-200">Tailwind</span>
+              </div>
             </div>
 
-            <div class="stack-card flex items-center gap-3 rounded-2xl border border-white/10 bg-white/[0.05] px-5 py-3">
-              <img class="h-7 w-7" alt="React" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg">
-              <span class="text-sm font-semibold text-zinc-200">React</span>
+            <div class="shrink-0 min-w-[150px] sm:min-w-[170px] rounded-2xl border border-white/10 bg-white/[0.05] px-4 py-3">
+              <div class="flex items-center gap-3">
+                <span class="grid h-9 w-9 place-items-center rounded-xl border border-blue-400/25 bg-blue-500/10">
+                  <img class="h-6 w-6" alt="React" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg">
+                </span>
+                <span class="whitespace-nowrap text-sm font-semibold text-zinc-200">React</span>
+              </div>
             </div>
 
-            <div class="stack-card flex items-center gap-3 rounded-2xl border border-white/10 bg-white/[0.05] px-5 py-3">
-              <img class="h-7 w-7" alt="GitHub" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/github/github-original.svg">
-              <span class="text-sm font-semibold text-zinc-200">GitHub</span>
+            <div class="shrink-0 min-w-[150px] sm:min-w-[170px] rounded-2xl border border-white/10 bg-white/[0.05] px-4 py-3">
+              <div class="flex items-center gap-3">
+                <span class="grid h-9 w-9 place-items-center rounded-xl border border-zinc-400/20 bg-white/5">
+                  <img class="h-6 w-6" alt="GitHub" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/github/github-original.svg">
+                </span>
+                <span class="whitespace-nowrap text-sm font-semibold text-zinc-200">GitHub</span>
+              </div>
             </div>
 
-            <div class="stack-card flex items-center gap-3 rounded-2xl border border-white/10 bg-white/[0.05] px-5 py-3">
-              <img class="h-7 w-7" alt="Git" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/git/git-original.svg">
-              <span class="text-sm font-semibold text-zinc-200">Git</span>
+            <div class="shrink-0 min-w-[140px] sm:min-w-[160px] rounded-2xl border border-white/10 bg-white/[0.05] px-4 py-3">
+              <div class="flex items-center gap-3">
+                <span class="grid h-9 w-9 place-items-center rounded-xl border border-rose-400/25 bg-rose-500/10">
+                  <img class="h-6 w-6" alt="Git" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/git/git-original.svg">
+                </span>
+                <span class="whitespace-nowrap text-sm font-semibold text-zinc-200">Git</span>
+              </div>
             </div>
 
-            <div class="stack-card flex items-center gap-3 rounded-2xl border border-white/10 bg-white/[0.05] px-5 py-3">
-              <img class="h-7 w-7" alt="Figma" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/figma/figma-original.svg">
-              <span class="text-sm font-semibold text-zinc-200">Figma</span>
+            <div class="shrink-0 min-w-[150px] sm:min-w-[170px] rounded-2xl border border-white/10 bg-white/[0.05] px-4 py-3">
+              <div class="flex items-center gap-3">
+                <span class="grid h-9 w-9 place-items-center rounded-xl border border-fuchsia-400/25 bg-fuchsia-500/10">
+                  <img class="h-6 w-6" alt="Figma" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/figma/figma-original.svg">
+                </span>
+                <span class="whitespace-nowrap text-sm font-semibold text-zinc-200">Figma</span>
+              </div>
             </div>
 
-            <div class="stack-card flex items-center gap-3 rounded-2xl border border-white/10 bg-white/[0.05] px-5 py-3">
-              <img class="h-7 w-7" alt="MySQL" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mysql/mysql-original.svg">
-              <span class="text-sm font-semibold text-zinc-200">MySQL</span>
+            <div class="shrink-0 min-w-[150px] sm:min-w-[170px] rounded-2xl border border-white/10 bg-white/[0.05] px-4 py-3">
+              <div class="flex items-center gap-3">
+                <span class="grid h-9 w-9 place-items-center rounded-xl border border-amber-400/25 bg-amber-500/10">
+                  <img class="h-6 w-6" alt="MySQL" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mysql/mysql-original.svg">
+                </span>
+                <span class="whitespace-nowrap text-sm font-semibold text-zinc-200">MySQL</span>
+              </div>
             </div>
 
-            <div class="stack-card flex items-center gap-3 rounded-2xl border border-white/10 bg-white/[0.05] px-5 py-3">
-              <img class="h-7 w-7" alt="XAMPP" src="https://cdn.jsdelivr.net/npm/simple-icons@v11/icons/xampp.svg" style="filter: invert(1);">
-              <span class="text-sm font-semibold text-zinc-200">XAMPP</span>
+            <div class="shrink-0 min-w-[150px] sm:min-w-[170px] rounded-2xl border border-white/10 bg-white/[0.05] px-4 py-3">
+              <div class="flex items-center gap-3">
+                <span class="grid h-9 w-9 place-items-center rounded-xl border border-orange-400/25 bg-orange-500/10">
+                  <img class="h-6 w-6" alt="XAMPP" src="https://cdn.jsdelivr.net/npm/simple-icons@v11/icons/xampp.svg" style="filter: invert(1);">
+                </span>
+                <span class="whitespace-nowrap text-sm font-semibold text-zinc-200">XAMPP</span>
+              </div>
             </div>
 
-            <div class="stack-card flex items-center gap-3 rounded-2xl border border-white/10 bg-white/[0.05] px-5 py-3">
-              <img class="h-7 w-7" alt="Vercel" src="https://cdn.jsdelivr.net/npm/simple-icons@v11/icons/vercel.svg" style="filter: invert(1);">
-              <span class="text-sm font-semibold text-zinc-200">Vercel</span>
+
+            <div class="shrink-0 min-w-[150px] sm:min-w-[170px] rounded-2xl border border-white/10 bg-white/[0.05] px-4 py-3">
+              <div class="flex items-center gap-3">
+                <span class="grid h-9 w-9 place-items-center rounded-xl border border-orange-400/25 bg-orange-500/10">
+                  <img class="h-6 w-6" alt="GoDaddy" src="https://cdn.jsdelivr.net/npm/simple-icons@v11/icons/godaddy.svg" style="filter: invert(1);">
+                </span>
+                <span class="whitespace-nowrap text-sm font-semibold text-zinc-200">GoDaddy</span>
+              </div>
             </div>
 
-            <div class="stack-card flex items-center gap-3 rounded-2xl border border-white/10 bg-white/[0.05] px-5 py-3">
-              <img class="h-7 w-7" alt="Hostinger" src="https://cdn.jsdelivr.net/npm/simple-icons@v11/icons/hostinger.svg" style="filter: invert(1);">
-              <span class="text-sm font-semibold text-zinc-200">Hostinger</span>
+            <div class="shrink-0 min-w-[150px] sm:min-w-[170px] rounded-2xl border border-white/10 bg-white/[0.05] px-4 py-3">
+              <div class="flex items-center gap-3">
+                <span class="grid h-9 w-9 place-items-center rounded-xl border border-white/10 bg-white/5">
+                  <img class="h-6 w-6" alt="Vercel" src="https://cdn.jsdelivr.net/npm/simple-icons@v11/icons/vercel.svg" style="filter: invert(1);">
+                </span>
+                <span class="whitespace-nowrap text-sm font-semibold text-zinc-200">Vercel</span>
+              </div>
+            </div>
+
+            <div class="shrink-0 min-w-[160px] sm:min-w-[180px] rounded-2xl border border-white/10 bg-white/[0.05] px-4 py-3">
+              <div class="flex items-center gap-3">
+                <span class="grid h-9 w-9 place-items-center rounded-xl border border-emerald-400/25 bg-emerald-500/10">
+                  <img class="h-6 w-6" alt="Hostinger" src="https://cdn.jsdelivr.net/npm/simple-icons@v11/icons/hostinger.svg" style="filter: invert(1);">
+                </span>
+                <span class="whitespace-nowrap text-sm font-semibold text-zinc-200">Hostinger</span>
+              </div>
             </div>
           </div>
 
-          <!-- Set B (duplicate for seamless loop) -->
-          <div class="flex w-1/2 flex-nowrap items-center gap-3 sm:gap-4">
-            <div class="stack-card flex items-center gap-3 rounded-2xl border border-white/10 bg-white/[0.05] px-5 py-3">
-              <img class="h-7 w-7" alt="HTML5" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/html5/html5-original.svg">
-              <span class="text-sm font-semibold text-zinc-200">HTML</span>
+          <!-- Group B (duplicate) -->
+          <div class="flex shrink-0 w-max items-center gap-3 sm:gap-4 pr-4">
+            <!-- duplicate same cards -->
+            <div class="shrink-0 min-w-[150px] sm:min-w-[170px] rounded-2xl border border-white/10 bg-white/[0.05] px-4 py-3">
+              <div class="flex items-center gap-3">
+                <span class="grid h-9 w-9 place-items-center rounded-xl border border-blue-400/25 bg-blue-500/10">
+                  <img class="h-6 w-6" alt="HTML5" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/html5/html5-original.svg">
+                </span>
+                <span class="whitespace-nowrap text-sm font-semibold text-zinc-200">HTML</span>
+              </div>
             </div>
 
-            <div class="stack-card flex items-center gap-3 rounded-2xl border border-white/10 bg-white/[0.05] px-5 py-3">
-              <img class="h-7 w-7" alt="CSS3" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/css3/css3-original.svg">
-              <span class="text-sm font-semibold text-zinc-200">CSS</span>
+            <div class="shrink-0 min-w-[150px] sm:min-w-[170px] rounded-2xl border border-white/10 bg-white/[0.05] px-4 py-3">
+              <div class="flex items-center gap-3">
+                <span class="grid h-9 w-9 place-items-center rounded-xl border border-emerald-400/25 bg-emerald-500/10">
+                  <img class="h-6 w-6" alt="CSS3" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/css3/css3-original.svg">
+                </span>
+                <span class="whitespace-nowrap text-sm font-semibold text-zinc-200">CSS</span>
+              </div>
             </div>
 
-            <div class="stack-card flex items-center gap-3 rounded-2xl border border-white/10 bg-white/[0.05] px-5 py-3">
-              <img class="h-7 w-7" alt="JavaScript" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg">
-              <span class="text-sm font-semibold text-zinc-200">JavaScript</span>
+            <div class="shrink-0 min-w-[160px] sm:min-w-[180px] rounded-2xl border border-white/10 bg-white/[0.05] px-4 py-3">
+              <div class="flex items-center gap-3">
+                <span class="grid h-9 w-9 place-items-center rounded-xl border border-yellow-400/25 bg-yellow-500/10">
+                  <img class="h-6 w-6" alt="JavaScript" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg">
+                </span>
+                <span class="whitespace-nowrap text-sm font-semibold text-zinc-200">JavaScript</span>
+              </div>
             </div>
 
-            <div class="stack-card flex items-center gap-3 rounded-2xl border border-white/10 bg-white/[0.05] px-5 py-3">
-              <img class="h-7 w-7" alt="Tailwind" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/tailwindcss/tailwindcss-original.svg">
-              <span class="text-sm font-semibold text-zinc-200">Tailwind</span>
+            <div class="shrink-0 min-w-[170px] sm:min-w-[190px] rounded-2xl border border-white/10 bg-white/[0.05] px-4 py-3">
+              <div class="flex items-center gap-3">
+                <span class="grid h-9 w-9 place-items-center rounded-xl border border-cyan-400/25 bg-cyan-500/10">
+                  <img class="h-6 w-6" alt="Tailwind" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/tailwindcss/tailwindcss-original.svg">
+                </span>
+                <span class="whitespace-nowrap text-sm font-semibold text-zinc-200">Tailwind</span>
+              </div>
             </div>
 
-            <div class="stack-card flex items-center gap-3 rounded-2xl border border-white/10 bg-white/[0.05] px-5 py-3">
-              <img class="h-7 w-7" alt="React" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg">
-              <span class="text-sm font-semibold text-zinc-200">React</span>
+            <div class="shrink-0 min-w-[150px] sm:min-w-[170px] rounded-2xl border border-white/10 bg-white/[0.05] px-4 py-3">
+              <div class="flex items-center gap-3">
+                <span class="grid h-9 w-9 place-items-center rounded-xl border border-blue-400/25 bg-blue-500/10">
+                  <img class="h-6 w-6" alt="React" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg">
+                </span>
+                <span class="whitespace-nowrap text-sm font-semibold text-zinc-200">React</span>
+              </div>
             </div>
 
-            <div class="stack-card flex items-center gap-3 rounded-2xl border border-white/10 bg-white/[0.05] px-5 py-3">
-              <img class="h-7 w-7" alt="GitHub" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/github/github-original.svg">
-              <span class="text-sm font-semibold text-zinc-200">GitHub</span>
+            <div class="shrink-0 min-w-[150px] sm:min-w-[170px] rounded-2xl border border-white/10 bg-white/[0.05] px-4 py-3">
+              <div class="flex items-center gap-3">
+                <span class="grid h-9 w-9 place-items-center rounded-xl border border-zinc-400/20 bg-white/5">
+                  <img class="h-6 w-6" alt="GitHub" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/github/github-original.svg">
+                </span>
+                <span class="whitespace-nowrap text-sm font-semibold text-zinc-200">GitHub</span>
+              </div>
             </div>
 
-            <div class="stack-card flex items-center gap-3 rounded-2xl border border-white/10 bg-white/[0.05] px-5 py-3">
-              <img class="h-7 w-7" alt="Git" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/git/git-original.svg">
-              <span class="text-sm font-semibold text-zinc-200">Git</span>
+            <div class="shrink-0 min-w-[140px] sm:min-w-[160px] rounded-2xl border border-white/10 bg-white/[0.05] px-4 py-3">
+              <div class="flex items-center gap-3">
+                <span class="grid h-9 w-9 place-items-center rounded-xl border border-rose-400/25 bg-rose-500/10">
+                  <img class="h-6 w-6" alt="Git" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/git/git-original.svg">
+                </span>
+                <span class="whitespace-nowrap text-sm font-semibold text-zinc-200">Git</span>
+              </div>
             </div>
 
-            <div class="stack-card flex items-center gap-3 rounded-2xl border border-white/10 bg-white/[0.05] px-5 py-3">
-              <img class="h-7 w-7" alt="Figma" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/figma/figma-original.svg">
-              <span class="text-sm font-semibold text-zinc-200">Figma</span>
+            <div class="shrink-0 min-w-[150px] sm:min-w-[170px] rounded-2xl border border-white/10 bg-white/[0.05] px-4 py-3">
+              <div class="flex items-center gap-3">
+                <span class="grid h-9 w-9 place-items-center rounded-xl border border-fuchsia-400/25 bg-fuchsia-500/10">
+                  <img class="h-6 w-6" alt="Figma" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/figma/figma-original.svg">
+                </span>
+                <span class="whitespace-nowrap text-sm font-semibold text-zinc-200">Figma</span>
+              </div>
             </div>
 
-            <div class="stack-card flex items-center gap-3 rounded-2xl border border-white/10 bg-white/[0.05] px-5 py-3">
-              <img class="h-7 w-7" alt="MySQL" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mysql/mysql-original.svg">
-              <span class="text-sm font-semibold text-zinc-200">MySQL</span>
+            <div class="shrink-0 min-w-[150px] sm:min-w-[170px] rounded-2xl border border-white/10 bg-white/[0.05] px-4 py-3">
+              <div class="flex items-center gap-3">
+                <span class="grid h-9 w-9 place-items-center rounded-xl border border-amber-400/25 bg-amber-500/10">
+                  <img class="h-6 w-6" alt="MySQL" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mysql/mysql-original.svg">
+                </span>
+                <span class="whitespace-nowrap text-sm font-semibold text-zinc-200">MySQL</span>
+              </div>
             </div>
 
-            <div class="stack-card flex items-center gap-3 rounded-2xl border border-white/10 bg-white/[0.05] px-5 py-3">
-              <img class="h-7 w-7" alt="XAMPP" src="https://cdn.jsdelivr.net/npm/simple-icons@v11/icons/xampp.svg" style="filter: invert(1);">
-              <span class="text-sm font-semibold text-zinc-200">XAMPP</span>
+            <div class="shrink-0 min-w-[150px] sm:min-w-[170px] rounded-2xl border border-white/10 bg-white/[0.05] px-4 py-3">
+              <div class="flex items-center gap-3">
+                <span class="grid h-9 w-9 place-items-center rounded-xl border border-orange-400/25 bg-orange-500/10">
+                  <img class="h-6 w-6" alt="XAMPP" src="https://cdn.jsdelivr.net/npm/simple-icons@v11/icons/xampp.svg" style="filter: invert(1);">
+                </span>
+                <span class="whitespace-nowrap text-sm font-semibold text-zinc-200">XAMPP</span>
+              </div>
             </div>
 
-            <div class="stack-card flex items-center gap-3 rounded-2xl border border-white/10 bg-white/[0.05] px-5 py-3">
-              <img class="h-7 w-7" alt="Vercel" src="https://cdn.jsdelivr.net/npm/simple-icons@v11/icons/vercel.svg" style="filter: invert(1);">
-              <span class="text-sm font-semibold text-zinc-200">Vercel</span>
+            <div class="shrink-0 min-w-[150px] sm:min-w-[170px] rounded-2xl border border-white/10 bg-white/[0.05] px-4 py-3">
+              <div class="flex items-center gap-3">
+                <span class="grid h-9 w-9 place-items-center rounded-xl border border-white/10 bg-white/5">
+                  <img class="h-6 w-6" alt="Vercel" src="https://cdn.jsdelivr.net/npm/simple-icons@v11/icons/vercel.svg" style="filter: invert(1);">
+                </span>
+                <span class="whitespace-nowrap text-sm font-semibold text-zinc-200">Vercel</span>
+              </div>
             </div>
 
-            <div class="stack-card flex items-center gap-3 rounded-2xl border border-white/10 bg-white/[0.05] px-5 py-3">
-              <img class="h-7 w-7" alt="Hostinger" src="https://cdn.jsdelivr.net/npm/simple-icons@v11/icons/hostinger.svg" style="filter: invert(1);">
-              <span class="text-sm font-semibold text-zinc-200">Hostinger</span>
+            <div class="shrink-0 min-w-[160px] sm:min-w-[180px] rounded-2xl border border-white/10 bg-white/[0.05] px-4 py-3">
+              <div class="flex items-center gap-3">
+                <span class="grid h-9 w-9 place-items-center rounded-xl border border-emerald-400/25 bg-emerald-500/10">
+                  <img class="h-6 w-6" alt="Hostinger" src="https://cdn.jsdelivr.net/npm/simple-icons@v11/icons/hostinger.svg" style="filter: invert(1);">
+                </span>
+                <span class="whitespace-nowrap text-sm font-semibold text-zinc-200">Hostinger</span>
+              </div>
             </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- EXPERIENCE & SKILLS (replaces About) -->
+    <section id="experience" class="mt-14 scroll-mt-24 center">
+      <div class="flex flex-col gap-2 text-center">
+        <!-- <p class="text-xs font-semibold tracking-[0.30em] text-fuchsia-200/80">BACKGROUND</p> -->
+        <h2 class="text-2xl font-black sm:text-3xl mb-6">Experience & Skills.</h2>
+      </div>
+
+            <!-- LEFT: Timeline (CENTER + ALTERNATE) -->
+      <div class="relative overflow-hidden rounded-[2.2rem] border border-white/10 bg-white/[0.05] p-6 sm:p-7 shadow-soft">
+
+        <div class="flex items-center justify-between gap-3">
+          <p class="text-base font-semibold">Timeline</p>
+          <span class="rounded-full border border-emerald-400/25 bg-emerald-500/10 px-3 py-1 text-xs font-semibold text-emerald-200">Now</span>
+        </div>
+
+        <!-- Center line (desktop) -->
+        <div class="pointer-events-none absolute left-1/2 top-24 hidden h-[calc(100%-7.5rem)] w-px -translate-x-1/2 bg-white/10 lg:block"></div>
+
+        <div class="mt-8 grid gap-7">
+
+          <!-- ITEM 1 (LEFT on desktop) -->
+          <div class="relative grid gap-4 lg:grid-cols-2 lg:gap-10">
+            <!-- Left card -->
+            <div class="lg:flex lg:justify-end">
+              <div class="w-full max-w-xl rounded-[1.8rem] border border-white/10 bg-zinc-950/35 p-5 sm:p-6">
+                <p class="text-sm text-zinc-400">2025 — Present</p>
+                <p class="mt-1 text-base font-semibold text-white">IT Support / Web Projects</p>
+                <p class="mt-1 text-sm font-semibold text-fuchsia-200/90">On-site • PH</p>
+                <p class="mt-3 text-base text-zinc-300">
+                  Handles troubleshooting, deployments, and builds modern responsive UI for internal / client-facing systems.
+                </p>
+                <div class="mt-4 flex flex-wrap gap-2 text-xs">
+                  <span class="rounded-full border border-blue-400/25 bg-blue-500/10 px-3 py-1 text-blue-200">UI</span>
+                  <span class="rounded-full border border-emerald-400/25 bg-emerald-500/10 px-3 py-1 text-emerald-200">Support</span>
+                  <span class="rounded-full border border-yellow-400/25 bg-yellow-500/10 px-3 py-1 text-yellow-200">Responsive</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Right spacer (empty on desktop) -->
+            <div class="hidden lg:block"></div>
+
+            <!-- Center dot -->
+            <span class="absolute left-0 top-6 h-3 w-3 rounded-full bg-fuchsia-400 shadow-[0_0_18px_rgba(217,70,239,0.45)]
+              lg:left-1/2 lg:-translate-x-1/2"></span>
+          </div>
+
+          <!-- ITEM 2 (RIGHT on desktop) -->
+          <div class="relative grid gap-4 lg:grid-cols-2 lg:gap-10">
+            <!-- Left spacer -->
+            <div class="hidden lg:block"></div>
+
+            <!-- Right card -->
+            <div class="lg:flex lg:justify-start">
+              <div class="w-full max-w-xl rounded-[1.8rem] border border-white/10 bg-zinc-950/35 p-5 sm:p-6">
+                <p class="text-sm text-zinc-400">2024 — 2025</p>
+                <p class="mt-1 text-base font-semibold text-white">Web Dev Learning + Prototypes</p>
+                <p class="mt-3 text-base text-zinc-300">
+                  Built dashboards, CRUD apps, and portfolio prototypes using HTML/CSS/JS and Tailwind.
+                </p>
+                <div class="mt-4 flex flex-wrap gap-2 text-xs">
+                  <span class="rounded-full border border-cyan-400/25 bg-cyan-500/10 px-3 py-1 text-cyan-200">Tailwind</span>
+                  <span class="rounded-full border border-yellow-400/25 bg-yellow-500/10 px-3 py-1 text-yellow-200">JavaScript</span>
+                  <span class="rounded-full border border-rose-400/25 bg-rose-500/10 px-3 py-1 text-rose-200">Git</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Center dot -->
+            <span class="absolute left-0 top-6 h-3 w-3 rounded-full bg-blue-400 shadow-[0_0_18px_rgba(59,130,246,0.45)]
+              lg:left-1/2 lg:-translate-x-1/2"></span>
+          </div>
+
+          <!-- ITEM 3 (LEFT on desktop) -->
+          <div class="relative grid gap-4 lg:grid-cols-2 lg:gap-10">
+            <!-- Left card -->
+            <div class="lg:flex lg:justify-end">
+              <div class="w-full max-w-xl rounded-[1.8rem] border border-white/10 bg-zinc-950/35 p-5 sm:p-6">
+                <p class="text-sm text-zinc-400">Thesis / School Projects</p>
+                <p class="mt-1 text-base font-semibold text-white">Health Me! (Thesis App)</p>
+                <p class="mt-3 text-base text-zinc-300">
+                  Gamified rehab tracking app with MySQL backend structure and mobile UI (prototype-focused).
+                </p>
+                <div class="mt-4 flex flex-wrap gap-2 text-xs">
+                  <span class="rounded-full border border-white/10 bg-white/[0.05] px-3 py-1 text-zinc-200">.NET MAUI</span>
+                  <span class="rounded-full border border-amber-400/25 bg-amber-500/10 px-3 py-1 text-amber-200">MySQL</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Right spacer -->
+            <div class="hidden lg:block"></div>
+
+            <!-- Center dot -->
+            <span class="absolute left-0 top-6 h-3 w-3 rounded-full bg-emerald-400 shadow-[0_0_18px_rgba(52,211,153,0.40)]
+              lg:left-1/2 lg:-translate-x-1/2"></span>
           </div>
 
         </div>
       </div>
     </section>
 
-    <!-- About -->
-    <section id="about" class="mt-14 scroll-mt-24">
-      <div>
-        <h2 class="text-2xl font-bold sm:text-3xl">About</h2>
-        <p class="mt-2 max-w-2xl text-base text-zinc-300">
-          I build responsive web apps and prototypes with clean UI and solid structure. I like turning ideas into working systems.
-        </p>
+    
+
+    <!-- SERVICES (4 cards like reference) -->
+    <section id="services" class="mt-14 scroll-mt-24">
+      <div class="text-center">
+        <h2 class="mt-2 text-3xl font-black sm:text-4xl">Services Offered.</h2>
       </div>
 
-      <div class="mt-6 grid gap-4 lg:grid-cols-3">
-        <div class="group rounded-[2rem] border border-white/10 bg-white/[0.05] p-6 sm:p-7 hover:bg-white/10 transition shadow-neon">
-          <p class="text-base font-semibold">What I do</p>
-          <p class="mt-2 text-base text-zinc-300">UI design, frontend development, backend integration, and database CRUD.</p>
-          <div class="mt-5 h-px w-full bg-gradient-to-r from-transparent via-white/10 to-transparent"></div>
-          <p class="mt-4 text-sm text-zinc-400">Focus: premium responsive UI.</p>
-        </div>
-        <div class="group rounded-[2rem] border border-white/10 bg-white/[0.05] p-6 sm:p-7 hover:bg-white/10 transition">
-          <p class="text-base font-semibold">What I value</p>
-          <p class="mt-2 text-base text-zinc-300">Readable code, accessibility, and simple UX that feels pro.</p>
-          <div class="mt-5 h-px w-full bg-gradient-to-r from-transparent via-white/10 to-transparent"></div>
-          <p class="mt-4 text-sm text-zinc-400">Minimal but high-end.</p>
-        </div>
-        <div class="group rounded-[2rem] border border-white/10 bg-white/[0.05] p-6 sm:p-7 hover:bg-white/10 transition">
-          <p class="text-base font-semibold">Goals</p>
-          <p class="mt-2 text-base text-zinc-300">Become a strong full-stack dev and ship real products.</p>
-          <div class="mt-5 h-px w-full bg-gradient-to-r from-transparent via-white/10 to-transparent"></div>
-          <p class="mt-4 text-sm text-zinc-400">Build → test → ship.</p>
-        </div>
-      </div>
-    </section>
-
-    <!-- Certificates -->
-    <section id="certificates" class="mt-14 scroll-mt-24">
-      <div>
-        <h2 class="text-2xl font-bold sm:text-3xl">Certificates</h2>
-        <p class="mt-2 text-base text-zinc-300">Modern cards with subtle accents.</p>
-      </div>
-
-      <div class="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-        <article class="relative group rounded-[2rem] border border-white/10 bg-white/[0.05] p-6 sm:p-7 hover:bg-white/10 transition overflow-hidden">
-          <div class="pointer-events-none absolute inset-0 opacity-0 group-hover:opacity-100 transition">
-            <div class="absolute -inset-24 bg-gradient-to-r from-blue-500/16 via-transparent to-amber-500/12 blur-2xl"></div>
+      <div class="mt-8 grid gap-4 lg:grid-cols-4">
+        <!-- card 1 -->
+        <article class="group rounded-[2.2rem] border border-white/10 bg-white/[0.05] p-6 sm:p-7 shadow-soft hover:bg-white/10 transition">
+          <div class="flex items-start justify-between gap-3">
+            <span class="grid h-12 w-12 place-items-center rounded-2xl border border-fuchsia-400/25 bg-fuchsia-500/10">
+              <svg class="h-6 w-6 text-fuchsia-200" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M4 6h16M4 10h10M4 14h16M4 18h10" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+              </svg>
+            </span>
+            <span class="rounded-full border border-white/10 bg-white/[0.05] px-3 py-1 text-xs text-zinc-300">Design</span>
           </div>
-          <div class="relative flex items-start justify-between gap-3">
-            <div>
-              <p class="text-base font-semibold">SoloLearn • Web Dev</p>
-              <p class="mt-1 text-sm text-zinc-400">Issued: 2025</p>
-            </div>
-            <span class="rounded-full border border-blue-400/25 bg-blue-500/12 px-3 py-1 text-xs font-semibold text-blue-200">Certificate</span>
-          </div>
-          <p class="relative mt-3 text-base text-zinc-300">HTML, CSS, JavaScript fundamentals and quizzes.</p>
-          <div class="relative mt-5">
-            <a href="#" class="text-base font-semibold text-blue-200 hover:text-blue-100">View →</a>
-          </div>
+          <h3 class="mt-6 text-lg font-semibold text-white">Website UI Design</h3>
+          <p class="mt-2 text-base text-zinc-300">
+            Clean, modern layouts that look premium and stay readable on every screen.
+          </p>
+          <div class="mt-5 h-px w-full bg-gradient-to-r from-transparent via-white/10 to-transparent"></div>
+          <p class="mt-4 text-sm text-zinc-400">Focus: typography, spacing, hierarchy.</p>
         </article>
 
-        <article class="relative group rounded-[2rem] border border-white/10 bg-white/[0.05] p-6 sm:p-7 hover:bg-white/10 transition overflow-hidden">
-          <div class="pointer-events-none absolute inset-0 opacity-0 group-hover:opacity-100 transition">
-            <div class="absolute -inset-24 bg-gradient-to-r from-fuchsia-500/14 via-transparent to-blue-500/12 blur-2xl"></div>
+        <!-- card 2 -->
+        <article class="group rounded-[2.2rem] border border-white/10 bg-white/[0.05] p-6 sm:p-7 shadow-soft hover:bg-white/10 transition">
+          <div class="flex items-start justify-between gap-3">
+            <span class="grid h-12 w-12 place-items-center rounded-2xl border border-blue-400/25 bg-blue-500/10">
+              <svg class="h-6 w-6 text-blue-200" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M9 4h6M10 20h4M8 4v16a2 2 0 0 0 2 2h4a2 2 0 0 0 2-2V4" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+              </svg>
+            </span>
+            <span class="rounded-full border border-white/10 bg-white/[0.05] px-3 py-1 text-xs text-zinc-300">Mobile</span>
           </div>
-          <div class="relative flex items-start justify-between gap-3">
-            <div>
-              <p class="text-base font-semibold">Responsive Web Design</p>
-              <p class="mt-1 text-sm text-zinc-400">Issued: 2025</p>
-            </div>
-            <span class="rounded-full border border-amber-400/25 bg-amber-500/12 px-3 py-1 text-xs font-semibold text-amber-200">Badge</span>
-          </div>
-          <p class="relative mt-3 text-base text-zinc-300">Layouts, breakpoints, flex/grid, accessibility basics.</p>
-          <div class="relative mt-5">
-            <a href="#" class="text-base font-semibold text-blue-200 hover:text-blue-100">View →</a>
-          </div>
+          <h3 class="mt-6 text-lg font-semibold text-white">Mobile UI (Prototype)</h3>
+          <p class="mt-2 text-base text-zinc-300">
+            App screens and flows for demos, thesis apps, and product validation.
+          </p>
+          <div class="mt-5 h-px w-full bg-gradient-to-r from-transparent via-white/10 to-transparent"></div>
+          <p class="mt-4 text-sm text-zinc-400">Focus: flow + clarity.</p>
         </article>
 
-        <article class="relative group rounded-[2rem] border border-white/10 bg-white/[0.05] p-6 sm:p-7 hover:bg-white/10 transition overflow-hidden">
+        <!-- card 3 (highlight) -->
+        <article class="group rounded-[2.2rem] border border-emerald-400/25 bg-white/[0.05] p-6 sm:p-7 shadow-neon hover:bg-white/10 transition relative overflow-hidden">
           <div class="pointer-events-none absolute inset-0 opacity-0 group-hover:opacity-100 transition">
-            <div class="absolute -inset-24 bg-gradient-to-r from-amber-500/12 via-transparent to-blue-500/12 blur-2xl"></div>
+            <div class="absolute -inset-24 bg-gradient-to-r from-emerald-500/14 via-transparent to-yellow-500/10 blur-2xl"></div>
           </div>
           <div class="relative flex items-start justify-between gap-3">
-            <div>
-              <p class="text-base font-semibold">Git & GitHub</p>
-              <p class="mt-1 text-sm text-zinc-400">Issued: 2026</p>
-            </div>
-            <span class="rounded-full border border-white/10 bg-white/[0.05] px-3 py-1 text-xs text-zinc-300">Course</span>
+            <span class="grid h-12 w-12 place-items-center rounded-2xl border border-emerald-400/25 bg-emerald-500/10">
+              <svg class="h-6 w-6 text-emerald-200" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M7 7h10v10H7V7Z" stroke="currentColor" stroke-width="2"/>
+                <path d="M5 12H3M21 12h-2M12 5V3M12 21v-2" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+              </svg>
+            </span>
+            <span class="relative rounded-full border border-emerald-400/25 bg-emerald-500/10 px-3 py-1 text-xs font-semibold text-emerald-200">Featured</span>
           </div>
-          <p class="relative mt-3 text-base text-zinc-300">Version control, branches, pull requests, collaboration.</p>
-          <div class="relative mt-5">
-            <a href="#" class="text-base font-semibold text-blue-200 hover:text-blue-100">View →</a>
+          <h3 class="relative mt-6 text-lg font-semibold text-emerald-200">Custom System UI</h3>
+          <p class="relative mt-2 text-base text-zinc-300">
+            Dashboard-style interfaces for internal tools, queueing systems, and CRUD apps.
+          </p>
+          <div class="relative mt-5 h-px w-full bg-gradient-to-r from-transparent via-white/10 to-transparent"></div>
+          <p class="relative mt-4 text-sm text-zinc-400">Focus: structure + usability.</p>
+        </article>
+
+        <!-- card 4 -->
+        <article class="group rounded-[2.2rem] border border-white/10 bg-white/[0.05] p-6 sm:p-7 shadow-soft hover:bg-white/10 transition">
+          <div class="flex items-start justify-between gap-3">
+            <span class="grid h-12 w-12 place-items-center rounded-2xl border border-rose-400/25 bg-rose-500/10">
+              <svg class="h-6 w-6 text-rose-200" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M4 7h16M4 12h16M4 17h16" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                <path d="M9 7v10" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+              </svg>
+            </span>
+            <span class="rounded-full border border-white/10 bg-white/[0.05] px-3 py-1 text-xs text-zinc-300">Build</span>
           </div>
+          <h3 class="mt-6 text-lg font-semibold text-white">Website Development</h3>
+          <p class="mt-2 text-base text-zinc-300">
+            Responsive websites using HTML, Tailwind CSS, and clean component-style structure.
+          </p>
+          <div class="mt-5 h-px w-full bg-gradient-to-r from-transparent via-white/10 to-transparent"></div>
+          <p class="mt-4 text-sm text-zinc-400">Focus: speed + responsiveness.</p>
         </article>
       </div>
     </section>
 
-    <!-- Projects -->
-    <section id="projects" class="mt-14 scroll-mt-24">
-      <div>
-        <h2 class="text-2xl font-bold sm:text-3xl">Projects</h2>
-        <p class="mt-2 text-base text-zinc-300">Cards with premium panel look.</p>
-      </div>
+    <!-- PORTFOLIO TABS (Certificates + Projects) -->
+<section class="mt-14 scroll-mt-24">
+  <!-- Tabs header -->
+  <div class="text-center">
+    <h2 class="text-3xl font-black sm:text-4xl">Portfolio</h2>
+    <p class="mx-auto mt-3 max-w-2xl text-base text-zinc-300">
+      Explore my journey through projects and certifications.
+    </p>
+  </div>
 
-      <div class="mt-6 grid gap-4 md:grid-cols-2 lg:grid-cols-3">
-        <article class="group overflow-hidden rounded-[2rem] border border-white/10 bg-white/[0.05] hover:bg-white/10 transition shadow-soft">
-          <div class="relative h-40 w-full overflow-hidden">
-            <div class="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_rgba(59,130,246,0.26),transparent_60%),radial-gradient(ellipse_at_bottom,_rgba(245,158,11,0.14),transparent_60%)]"></div>
+  <!-- Radio tabs (no JS) -->
+  <div class="mt-8">
+    <div class="mx-auto max-w-6xl rounded-[2.2rem] border border-white/10 bg-white/[0.05] p-3 sm:p-4 shadow-soft">
+      <div class="grid gap-3 sm:grid-cols-2">
+        <!-- Projects tab -->
+        <input
+          id="tab-projects"
+          type="radio"
+          name="portfolioTab"
+          class="peer/tabProjects hidden"
+          checked
+        />
+        <label
+          for="tab-projects"
+          class="cursor-pointer rounded-[1.6rem] border border-white/10 bg-white/[0.04] px-5 py-4 text-center text-sm font-semibold text-zinc-300 transition
+                 hover:bg-white/10
+                 peer-checked/tabProjects:border-white/15 peer-checked/tabProjects:bg-white/[0.08] peer-checked/tabProjects:text-white"
+        >
+          <span class="inline-flex items-center justify-center gap-2">
+            <span class="opacity-80">📁</span>
+            Projects
+          </span>
+        </label>
+
+        <!-- Certificates tab -->
+        <input
+          id="tab-certs"
+          type="radio"
+          name="portfolioTab"
+          class="peer/tabCerts hidden"
+        />
+        <label
+          for="tab-certs"
+          class="cursor-pointer rounded-[1.6rem] border border-white/10 bg-white/[0.04] px-5 py-4 text-center text-sm font-semibold text-zinc-300 transition
+                 hover:bg-white/10
+                 peer-checked/tabCerts:border-white/15 peer-checked/tabCerts:bg-white/[0.08] peer-checked/tabCerts:text-white"
+        >
+          <span class="inline-flex items-center justify-center gap-2">
+            <span class="opacity-80">🏅</span>
+            Certifications
+          </span>
+        </label>
+      </div>
+    </div>
+
+    <!-- Content Panels -->
+    <div class="mt-6">
+      <!-- PROJECTS PANEL (default visible) -->
+      <div id="panelProjects" class="block" aria-labelledby="tab-projects">
+        <!-- anchor for navbar -->
+        <div id="projects" class="scroll-mt-24"></div>
+
+        <!-- KEEP YOUR PROJECTS DESIGN (unchanged) -->
+        <div class="mt-6 grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+          <article class="group overflow-hidden rounded-[2.2rem] border border-white/10 bg-white/[0.05] hover:bg-white/10 transition shadow-soft">
+
+            <!-- IMAGE HEADER -->
+            <div class="relative h-44 w-full overflow-hidden">
+              <img
+                src="https://images.unsplash.com/photo-1555066931-4365d14bab8c?q=80&w=1200&auto=format&fit=crop"
+                alt="Clinic Queueing System Preview"
+                class="h-full w-full object-cover opacity-80 transition duration-500 group-hover:scale-105"
+                loading="lazy"
+              />
+
+              <div class="absolute inset-0 bg-gradient-to-t from-zinc-950 via-zinc-950/40 to-transparent"></div>
+
+              <div class="absolute inset-0 opacity-0 group-hover:opacity-100 transition">
+                <div class="absolute -left-1/2 top-0 h-full w-1/2 bg-white/12 rotate-12 animate-shimmer"></div>
+              </div>
+
+              <div class="absolute left-4 top-4 rounded-full border border-white/10 bg-zinc-950/40 px-3 py-1 text-xs text-zinc-200 backdrop-blur">
+                Web
+              </div>
+            </div>
+
+            <!-- CONTENT (UNCHANGED) -->
+            <div class="p-6 sm:p-7">
+              <h3 class="text-lg font-semibold">Clinic Queueing System (Prototype)</h3>
+              <p class="mt-2 text-base text-zinc-300">Multi-department queue, priority handling, real-time monitoring UI.</p>
+
+              <div class="mt-4 flex flex-wrap gap-2 text-sm">
+                <span class="rounded-full border border-white/10 bg-white/[0.05] px-4 py-1.5">Tailwind</span>
+                <span class="rounded-full border border-white/10 bg-white/[0.05] px-4 py-1.5">JS</span>
+                <span class="rounded-full border border-emerald-400/25 bg-emerald-500/10 px-4 py-1.5 font-semibold text-emerald-200">Responsive</span>
+              </div>
+
+              <div class="mt-6 flex gap-3">
+                <a href="#" class="inline-flex flex-1 items-center justify-center rounded-2xl bg-white px-4 py-2.5 text-sm font-semibold text-zinc-900 hover:bg-zinc-100">Live</a>
+                <a href="#" class="inline-flex flex-1 items-center justify-center rounded-2xl border border-white/10 bg-white/[0.05] px-4 py-2.5 text-sm font-semibold text-white hover:bg-white/10">Code</a>
+              </div>
+            </div>
+          </article>
+
+          <article class="group overflow-hidden rounded-[2.2rem] border border-white/10 bg-white/[0.05] hover:bg-white/10 transition shadow-soft">
+
+          <!-- IMAGE HEADER -->
+          <div class="relative h-44 w-full overflow-hidden">
+            <img
+              src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=1200&auto=format&fit=crop"
+              alt="Clinic Queueing System Preview"
+              class="h-full w-full object-cover opacity-80 transition duration-500 group-hover:scale-105"
+              loading="lazy"
+            />
+
+            <div class="absolute inset-0 bg-gradient-to-t from-zinc-950 via-zinc-950/40 to-transparent"></div>
+
             <div class="absolute inset-0 opacity-0 group-hover:opacity-100 transition">
               <div class="absolute -left-1/2 top-0 h-full w-1/2 bg-white/12 rotate-12 animate-shimmer"></div>
             </div>
-            <div class="absolute left-4 top-4 rounded-full border border-white/10 bg-zinc-950/40 px-3 py-1 text-xs text-zinc-200 backdrop-blur">Web</div>
+
+            <div class="absolute left-4 top-4 rounded-full border border-white/10 bg-zinc-950/40 px-3 py-1 text-xs text-zinc-200 backdrop-blur">
+              Web
+            </div>
           </div>
+
+          <!-- CONTENT (UNCHANGED) -->
           <div class="p-6 sm:p-7">
             <h3 class="text-lg font-semibold">Clinic Queueing System (Prototype)</h3>
             <p class="mt-2 text-base text-zinc-300">Multi-department queue, priority handling, real-time monitoring UI.</p>
+
             <div class="mt-4 flex flex-wrap gap-2 text-sm">
               <span class="rounded-full border border-white/10 bg-white/[0.05] px-4 py-1.5">Tailwind</span>
               <span class="rounded-full border border-white/10 bg-white/[0.05] px-4 py-1.5">JS</span>
-              <span class="rounded-full border border-blue-400/25 bg-blue-500/12 px-4 py-1.5 font-semibold text-blue-200">Responsive</span>
+              <span class="rounded-full border border-emerald-400/25 bg-emerald-500/10 px-4 py-1.5 font-semibold text-emerald-200">Responsive</span>
             </div>
+
             <div class="mt-6 flex gap-3">
               <a href="#" class="inline-flex flex-1 items-center justify-center rounded-2xl bg-white px-4 py-2.5 text-sm font-semibold text-zinc-900 hover:bg-zinc-100">Live</a>
               <a href="#" class="inline-flex flex-1 items-center justify-center rounded-2xl border border-white/10 bg-white/[0.05] px-4 py-2.5 text-sm font-semibold text-white hover:bg-white/10">Code</a>
@@ -473,142 +802,339 @@
           </div>
         </article>
 
-        <article class="group overflow-hidden rounded-[2rem] border border-white/10 bg-white/[0.05] hover:bg-white/10 transition shadow-soft">
-          <div class="relative h-40 w-full overflow-hidden">
-            <div class="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_rgba(245,158,11,0.18),transparent_60%),radial-gradient(ellipse_at_bottom,_rgba(217,70,239,0.18),transparent_60%)]"></div>
+          <article class="group overflow-hidden rounded-[2.2rem] border border-white/10 bg-white/[0.05] hover:bg-white/10 transition shadow-soft">
+
+          <!-- IMAGE HEADER -->
+          <div class="relative h-44 w-full overflow-hidden">
+            <img
+              src="https://images.unsplash.com/photo-1515879218367-8466d910aaa4?q=80&w=1200&auto=format&fit=crop"
+              alt="Clinic Queueing System Preview"
+              class="h-full w-full object-cover opacity-80 transition duration-500 group-hover:scale-105"
+              loading="lazy"
+            />
+
+            <div class="absolute inset-0 bg-gradient-to-t from-zinc-950 via-zinc-950/40 to-transparent"></div>
+
             <div class="absolute inset-0 opacity-0 group-hover:opacity-100 transition">
               <div class="absolute -left-1/2 top-0 h-full w-1/2 bg-white/12 rotate-12 animate-shimmer"></div>
             </div>
-            <div class="absolute left-4 top-4 rounded-full border border-white/10 bg-zinc-950/40 px-3 py-1 text-xs text-zinc-200 backdrop-blur">Web</div>
-          </div>
-          <div class="p-6 sm:p-7">
-            <h3 class="text-lg font-semibold">Tourism Registration System</h3>
-            <p class="mt-2 text-base text-zinc-300">Registration flow with generated ID + admin dashboard UI.</p>
-            <div class="mt-4 flex flex-wrap gap-2 text-sm">
-              <span class="rounded-full border border-white/10 bg-white/[0.05] px-4 py-1.5">Forms</span>
-              <span class="rounded-full border border-amber-400/25 bg-amber-500/12 px-4 py-1.5 font-semibold text-amber-200">Validation</span>
+
+            <div class="absolute left-4 top-4 rounded-full border border-white/10 bg-zinc-950/40 px-3 py-1 text-xs text-zinc-200 backdrop-blur">
+              Web
             </div>
+          </div>
+
+          <!-- CONTENT (UNCHANGED) -->
+          <div class="p-6 sm:p-7">
+            <h3 class="text-lg font-semibold">Clinic Queueing System (Prototype)</h3>
+            <p class="mt-2 text-base text-zinc-300">Multi-department queue, priority handling, real-time monitoring UI.</p>
+
+            <div class="mt-4 flex flex-wrap gap-2 text-sm">
+              <span class="rounded-full border border-white/10 bg-white/[0.05] px-4 py-1.5">Tailwind</span>
+              <span class="rounded-full border border-white/10 bg-white/[0.05] px-4 py-1.5">JS</span>
+              <span class="rounded-full border border-emerald-400/25 bg-emerald-500/10 px-4 py-1.5 font-semibold text-emerald-200">Responsive</span>
+            </div>
+
             <div class="mt-6 flex gap-3">
               <a href="#" class="inline-flex flex-1 items-center justify-center rounded-2xl bg-white px-4 py-2.5 text-sm font-semibold text-zinc-900 hover:bg-zinc-100">Live</a>
               <a href="#" class="inline-flex flex-1 items-center justify-center rounded-2xl border border-white/10 bg-white/[0.05] px-4 py-2.5 text-sm font-semibold text-white hover:bg-white/10">Code</a>
             </div>
           </div>
         </article>
-
-        <article class="group overflow-hidden rounded-[2rem] border border-white/10 bg-white/[0.05] hover:bg-white/10 transition shadow-soft">
-          <div class="relative h-40 w-full overflow-hidden">
-            <div class="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_rgba(217,70,239,0.18),transparent_60%),radial-gradient(ellipse_at_bottom,_rgba(59,130,246,0.18),transparent_60%)]"></div>
-            <div class="absolute inset-0 opacity-0 group-hover:opacity-100 transition">
-              <div class="absolute -left-1/2 top-0 h-full w-1/2 bg-white/12 rotate-12 animate-shimmer"></div>
-            </div>
-            <div class="absolute left-4 top-4 rounded-full border border-white/10 bg-zinc-950/40 px-3 py-1 text-xs text-zinc-200 backdrop-blur">Mobile</div>
-          </div>
-          <div class="p-6 sm:p-7">
-            <h3 class="text-lg font-semibold">Health Me! (Thesis App)</h3>
-            <p class="mt-2 text-base text-zinc-300">Gamified rehab app with progress tracking, rewards, and exercises.</p>
-            <div class="mt-4 flex flex-wrap gap-2 text-sm">
-              <span class="rounded-full border border-white/10 bg-white/[0.05] px-4 py-1.5">.NET MAUI</span>
-              <span class="rounded-full border border-blue-400/25 bg-blue-500/12 px-4 py-1.5 font-semibold text-blue-200">MySQL</span>
-            </div>
-            <div class="mt-6 flex gap-3">
-              <a href="#" class="inline-flex flex-1 items-center justify-center rounded-2xl bg-white px-4 py-2.5 text-sm font-semibold text-zinc-900 hover:bg-zinc-100">Preview</a>
-              <a href="#" class="inline-flex flex-1 items-center justify-center rounded-2xl border border-white/10 bg-white/[0.05] px-4 py-2.5 text-sm font-semibold text-white hover:bg-white/10">Details</a>
-            </div>
-          </div>
-        </article>
+        </div>
       </div>
-    </section>
 
-    <!-- Contact -->
-    <section id="contact" class="mt-14 scroll-mt-24">
-      <div class="grid gap-6 lg:grid-cols-2 lg:items-start">
-        <div>
-          <h2 class="text-2xl font-bold sm:text-3xl">Contact</h2>
-          <p class="mt-2 text-base text-zinc-300">Let’s build something clean and premium.</p>
+      <!-- CERTIFICATES PANEL -->
+      <div id="panelCerts" class="hidden" aria-labelledby="tab-certs">
+        <!-- anchor for navbar -->
+        <div id="certificates" class="scroll-mt-24"></div>
 
-          <div class="mt-6 grid gap-3 text-sm">
-            <div class="rounded-[2rem] border border-white/10 bg-white/[0.05] p-6 hover:bg-white/10 transition">
-              <p class="text-xs text-zinc-400">Email</p>
-              <p class="mt-1 text-base font-semibold text-white">yourname@email.com</p>
+        <div class="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+        <article class="group overflow-hidden rounded-[2.2rem] border border-blue-400/15 bg-white/[0.05] hover:bg-white/10 transition shadow-soft">
+  
+        <!-- IMAGE PREVIEW (like projects) -->
+        <div class="relative h-44 w-full overflow-hidden">
+          <img 
+            src="https://images.unsplash.com/photo-1584697964358-3e14ca57658b?q=80&w=1200&auto=format&fit=crop"
+            alt="Certificate Preview"
+            class="h-full w-full object-cover opacity-80 group-hover:scale-105 transition duration-500"
+          />
+
+          <!-- subtle overlay -->
+          <div class="absolute inset-0 bg-gradient-to-t from-zinc-950 via-zinc-950/40 to-transparent"></div>
+
+          <!-- badge -->
+          <div class="absolute left-4 top-4 rounded-full border border-blue-400/25 bg-blue-500/20 px-3 py-1 text-xs font-semibold text-blue-200 backdrop-blur">
+            Certificate
+          </div>
+        </div>
+
+        <!-- CONTENT -->
+        <div class="p-6 sm:p-7">
+          <h3 class="text-lg font-semibold text-white">SoloLearn • Web Dev</h3>
+          <p class="mt-1 text-sm text-zinc-400">Issued: 2025</p>
+
+          <p class="mt-3 text-base text-zinc-300">
+            HTML, CSS, JavaScript fundamentals and quizzes.
+          </p>
+
+          <div class="mt-6">
+            <a href="#" class="inline-flex items-center gap-2 text-sm font-semibold text-blue-200 hover:text-blue-100">
+              View Certificate →
+            </a>
+          </div>
+        </div>
+      </article>
+
+       <article class="group overflow-hidden rounded-[2.2rem] border border-blue-400/15 bg-white/[0.05] hover:bg-white/10 transition shadow-soft">
+          
+          <!-- IMAGE PREVIEW (like projects) -->
+          <div class="relative h-44 w-full overflow-hidden">
+            <img 
+              src="https://images.unsplash.com/photo-1584697964358-3e14ca57658b?q=80&w=1200&auto=format&fit=crop"
+              alt="Certificate Preview"
+              class="h-full w-full object-cover opacity-80 group-hover:scale-105 transition duration-500"
+            />
+
+            <!-- subtle overlay -->
+            <div class="absolute inset-0 bg-gradient-to-t from-zinc-950 via-zinc-950/40 to-transparent"></div>
+
+            <!-- badge -->
+            <div class="absolute left-4 top-4 rounded-full border border-blue-400/25 bg-blue-500/20 px-3 py-1 text-xs font-semibold text-blue-200 backdrop-blur">
+              Certificate
             </div>
-            <div class="rounded-[2rem] border border-white/10 bg-white/[0.05] p-6 hover:bg-white/10 transition">
-              <p class="text-xs text-zinc-400">Social</p>
-              <p class="mt-1 text-base font-semibold text-white">GitHub • LinkedIn • Facebook</p>
+          </div>
+
+          <!-- CONTENT -->
+          <div class="p-6 sm:p-7">
+            <h3 class="text-lg font-semibold text-white">SoloLearn • Web Dev</h3>
+            <p class="mt-1 text-sm text-zinc-400">Issued: 2025</p>
+
+            <p class="mt-3 text-base text-zinc-300">
+              HTML, CSS, JavaScript fundamentals and quizzes.
+            </p>
+
+            <div class="mt-6">
+              <a href="#" class="inline-flex items-center gap-2 text-sm font-semibold text-blue-200 hover:text-blue-100">
+                View Certificate →
+              </a>
+            </div>
+          </div>
+        </article>
+
+        <article class="group overflow-hidden rounded-[2.2rem] border border-blue-400/15 bg-white/[0.05] hover:bg-white/10 transition shadow-soft">
+          
+          <!-- IMAGE PREVIEW (like projects) -->
+          <div class="relative h-44 w-full overflow-hidden">
+            <img 
+              src="https://images.unsplash.com/photo-1584697964358-3e14ca57658b?q=80&w=1200&auto=format&fit=crop"
+              alt="Certificate Preview"
+              class="h-full w-full object-cover opacity-80 group-hover:scale-105 transition duration-500"
+            />
+
+            <!-- subtle overlay -->
+            <div class="absolute inset-0 bg-gradient-to-t from-zinc-950 via-zinc-950/40 to-transparent"></div>
+
+            <!-- badge -->
+            <div class="absolute left-4 top-4 rounded-full border border-blue-400/25 bg-blue-500/20 px-3 py-1 text-xs font-semibold text-blue-200 backdrop-blur">
+              Certificate
+            </div>
+          </div>
+
+          <!-- CONTENT -->
+          <div class="p-6 sm:p-7">
+            <h3 class="text-lg font-semibold text-white">SoloLearn • Web Dev</h3>
+            <p class="mt-1 text-sm text-zinc-400">Issued: 2025</p>
+
+            <p class="mt-3 text-base text-zinc-300">
+              HTML, CSS, JavaScript fundamentals and quizzes.
+            </p>
+
+            <div class="mt-6">
+              <a href="#" class="inline-flex items-center gap-2 text-sm font-semibold text-blue-200 hover:text-blue-100">
+                View Certificate →
+              </a>
+            </div>
+          </div>
+        </article>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+          <div class="relative mt-24 mb-24 overflow-hidden">
+
+  <!-- subtle gradient glow -->
+  <!-- <div class="absolute -inset-20 bg-gradient-to-r from-blue-500/10 via-fuchsia-500/5 to-amber-500/10 blur-3xl"></div> -->
+
+  <!-- subtle radial highlight -->
+  <div class="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(255,255,255,0.06),transparent_90%)]"></div>
+
+  <div class="relative text-center">
+    <h3 class="text-3xl font-black leading-tight sm:text-4xl lg:text-6xl">
+      “Action is what separates
+      <span class="text-transparent bg-clip-text bg-gradient-to-r from-blue-300 via-fuchsia-200 to-amber-200">
+        Dreams from reality.
+      </span>”
+    </h3>
+
+    <!-- <p class="mx-auto mt-6 max-w-2xl text-lg text-zinc-400">
+      I don’t just write code when I feel inspired.  
+      I build systems, improve daily, and stay disciplined — even when it’s hard.
+    </p> -->
+
+  </div>
+</div>
+
+    <!-- CONTACT (new modern layout) -->
+    <section id="contact" class="mt-14 scroll-mt-24">
+      <div class="text-center">
+        <h2 class="mt-2 text-3xl font-black sm:text-4xl">Let’s talk.</h2>
+        <p class="mx-auto mt-3 max-w-2xl text-base text-zinc-300">
+          A cleaner, more modern contact layout (left info cards + right form card).
+        </p>
+      </div>
+
+      <div class="mt-8 grid gap-6 lg:grid-cols-[0.95fr_1.05fr] lg:items-start">
+        <!-- Left info -->
+        <div class="grid gap-4">
+          <div class="rounded-[2.2rem] border border-white/10 bg-white/[0.05] p-6 sm:p-7 shadow-soft">
+            <div class="flex items-start gap-4">
+              <span class="grid h-12 w-12 place-items-center rounded-2xl border border-emerald-400/25 bg-emerald-500/10">
+                <svg class="h-6 w-6 text-emerald-200" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M4 6.5l8 6 8-6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                  <path d="M5 7.5v10A2.5 2.5 0 0 0 7.5 20h9A2.5 2.5 0 0 0 19 17.5v-10" stroke="currentColor" stroke-width="2" />
+                </svg>
+              </span>
+              <div class="min-w-0">
+                <p class="text-xs text-zinc-400">Email</p>
+                <p class="mt-1 text-base font-semibold text-white break-words">jessiejeffyambao06@gmail.com</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="rounded-[2.2rem] border border-white/10 bg-white/[0.05] p-6 sm:p-7 shadow-soft">
+            <div class="flex items-start gap-4">
+              <span class="grid h-12 w-12 place-items-center rounded-2xl border border-blue-400/25 bg-blue-500/10">
+                <svg class="h-6 w-6 text-blue-200" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M12 12a5 5 0 1 0-5-5 5 5 0 0 0 5 5Z" stroke="currentColor" stroke-width="2"/>
+                  <path d="M20 21a8 8 0 1 0-16 0" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                </svg>
+              </span>
+              <div class="min-w-0">
+                <p class="text-xs text-zinc-400">Social</p>
+                <p class="mt-1 text-base font-semibold text-white">GitHub • LinkedIn • Facebook</p>
+                <div class="mt-4 flex flex-wrap gap-2 text-xs">
+                  <a href="#" class="rounded-full border border-white/10 bg-white/[0.05] px-3 py-1 text-zinc-200 hover:bg-white/10">GitHub</a>
+                  <a href="#" class="rounded-full border border-white/10 bg-white/[0.05] px-3 py-1 text-zinc-200 hover:bg-white/10">LinkedIn</a>
+                  <a href="#" class="rounded-full border border-white/10 bg-white/[0.05] px-3 py-1 text-zinc-200 hover:bg-white/10">Facebook</a>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="rounded-[2.2rem] border border-yellow-400/15 bg-white/[0.05] p-6 sm:p-7 shadow-neon">
+            <p class="text-base font-semibold text-white">Availability</p>
+            <p class="mt-2 text-base text-zinc-300">Open for internship, freelance, and collaborations.</p>
+            <div class="mt-4 flex flex-wrap gap-2 text-xs">
+              <span class="rounded-full border border-emerald-400/25 bg-emerald-500/10 px-3 py-1 text-emerald-200">Internship</span>
+              <span class="rounded-full border border-fuchsia-400/25 bg-fuchsia-500/10 px-3 py-1 text-fuchsia-200">Freelance</span>
+              <span class="rounded-full border border-rose-400/25 bg-rose-500/10 px-3 py-1 text-rose-200">Collab</span>
             </div>
           </div>
         </div>
 
-        <form class="rounded-[2rem] border border-white/10 bg-white/[0.05] p-6 sm:p-7 backdrop-blur-xl shadow-neon">
-          <div class="grid gap-4">
-            <div>
-              <label class="text-xs text-zinc-400" for="name">Name</label>
-              <input id="name" type="text" placeholder="Your name"
-                class="mt-2 w-full rounded-3xl border border-white/10 bg-zinc-950/40 px-4 py-3 text-base text-white placeholder:text-zinc-600 outline-none focus:border-blue-400/55 focus:ring-2 focus:ring-blue-400/20" />
+        <!-- Right form -->
+        <form class="relative overflow-hidden rounded-[2.2rem] border border-white/10 bg-white/[0.05] p-6 sm:p-7 backdrop-blur-xl shadow-neon">
+          <div aria-hidden="true" class="absolute -inset-24 bg-gradient-to-r from-blue-500/12 via-transparent to-rose-500/10 blur-2xl"></div>
+
+          <div class="relative">
+            <p class="text-base font-semibold text-white">Send a message</p>
+
+            <div class="mt-6 grid gap-4">
+              <div class="grid gap-4 sm:grid-cols-2">
+                <div>
+                  <label class="text-xs text-zinc-400" for="name">Name</label>
+                  <input id="name" type="text" placeholder="Your name"
+                    class="mt-2 w-full rounded-3xl border border-white/10 bg-zinc-950/40 px-4 py-3 text-base text-white placeholder:text-zinc-600 outline-none focus:border-emerald-400/55 focus:ring-2 focus:ring-emerald-400/20" />
+                </div>
+                <div>
+                  <label class="text-xs text-zinc-400" for="email">Email</label>
+                  <input id="email" type="email" placeholder="you@email.com"
+                    class="mt-2 w-full rounded-3xl border border-white/10 bg-zinc-950/40 px-4 py-3 text-base text-white placeholder:text-zinc-600 outline-none focus:border-blue-400/55 focus:ring-2 focus:ring-blue-400/20" />
+                </div>
+              </div>
+
+              <div>
+                <label class="text-xs text-zinc-400" for="topic">Topic</label>
+                <input id="topic" type="text" placeholder="e.g., Portfolio, Website, System UI"
+                  class="mt-2 w-full rounded-3xl border border-white/10 bg-zinc-950/40 px-4 py-3 text-base text-white placeholder:text-zinc-600 outline-none focus:border-fuchsia-400/55 focus:ring-2 focus:ring-fuchsia-400/20" />
+              </div>
+
+              <div>
+                <label class="text-xs text-zinc-400" for="message">Message</label>
+                <textarea id="message" rows="6" placeholder="Tell me about your project..."
+                  class="mt-2 w-full resize-none rounded-3xl border border-white/10 bg-zinc-950/40 px-4 py-3 text-base text-white placeholder:text-zinc-600 outline-none focus:border-yellow-400/55 focus:ring-2 focus:ring-yellow-400/20"></textarea>
+              </div>
+
+              <button type="button"
+                class="relative inline-flex items-center justify-center rounded-3xl bg-white px-6 py-3 text-sm font-semibold text-zinc-900 hover:bg-zinc-100 overflow-hidden">
+                <span aria-hidden="true" class="absolute -left-1/2 top-0 h-full w-1/2 bg-zinc-200/40 rotate-12 animate-shimmer"></span>
+                <span class="relative">Send Message</span>
+              </button>
+
+              <p class="text-sm text-zinc-500">
+                *When you’re ready, we can connect this to EmailJS / Formspree / API.
+              </p>
             </div>
-
-            <div>
-              <label class="text-xs text-zinc-400" for="email">Email</label>
-              <input id="email" type="email" placeholder="you@email.com"
-                class="mt-2 w-full rounded-3xl border border-white/10 bg-zinc-950/40 px-4 py-3 text-base text-white placeholder:text-zinc-600 outline-none focus:border-fuchsia-400/55 focus:ring-2 focus:ring-fuchsia-400/20" />
-            </div>
-
-            <div>
-              <label class="text-xs text-zinc-400" for="message">Message</label>
-              <textarea id="message" rows="5" placeholder="Tell me about your project..."
-                class="mt-2 w-full resize-none rounded-3xl border border-white/10 bg-zinc-950/40 px-4 py-3 text-base text-white placeholder:text-zinc-600 outline-none focus:border-amber-400/55 focus:ring-2 focus:ring-amber-400/20"></textarea>
-            </div>
-
-            <button type="button"
-              class="relative inline-flex items-center justify-center rounded-3xl bg-white px-6 py-3 text-sm font-semibold text-zinc-900 hover:bg-zinc-100 overflow-hidden">
-              <span aria-hidden="true" class="absolute -left-1/2 top-0 h-full w-1/2 bg-zinc-200/40 rotate-12 animate-shimmer"></span>
-              <span class="relative">Send Message</span>
-            </button>
-
-            <p class="text-sm text-zinc-500">
-              *UI only. If you want it working, I can add EmailJS / Formspree / backend API.
-            </p>
           </div>
         </form>
       </div>
     </section>
+
   </main>
 
-  <!-- Footer -->
-  <footer class="border-t border-white/10 bg-zinc-950/60 backdrop-blur-xl">
+  <!-- FOOTER -->
+  <footer class="border-t border-white/10 bg-zinc-950/70 backdrop-blur-xl">
     <div class="mx-auto max-w-6xl px-4 py-10 md:px-6">
       <div class="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
         <p class="text-base text-zinc-400">
           © <span id="year"></span> Jessie Jeff. All rights reserved.
         </p>
-        <div class="flex flex-wrap gap-2">
-          <a class="rounded-2xl border border-white/10 bg-white/[0.05] px-4 py-2 text-sm text-zinc-300 hover:bg-white/10" href="#home">Top</a>
-          <a class="rounded-2xl border border-white/10 bg-white/[0.05] px-4 py-2 text-sm text-zinc-300 hover:bg-white/10" href="#projects">Projects</a>
-          <a class="rounded-2xl border border-white/10 bg-white/[0.05] px-4 py-2 text-sm text-zinc-300 hover:bg-white/10" href="#contact">Contact</a>
-        </div>
       </div>
     </div>
   </footer>
 
+  <!-- optional tiny JS only for year (remove if ayaw mo ng JS talaga) -->
   <script>
-    // Mobile menu toggle
-    const btn = document.getElementById('menuBtn');
-    const menu = document.getElementById('mobileMenu');
-
-    btn?.addEventListener('click', () => {
-      const isHidden = menu.classList.toggle('hidden');
-      btn.setAttribute('aria-expanded', String(!isHidden));
-    });
-
-    menu?.querySelectorAll('a').forEach(a => {
-      a.addEventListener('click', () => {
-        if (!menu.classList.contains('hidden')) {
-          menu.classList.add('hidden');
-          btn.setAttribute('aria-expanded', 'false');
-        }
-      });
-    });
-
     document.getElementById('year').textContent = new Date().getFullYear();
   </script>
+
+  <script>
+  // keep your year
+  document.getElementById('year').textContent = new Date().getFullYear();
+
+  // tabs logic
+  const tabProjects = document.getElementById('tab-projects');
+  const tabCerts = document.getElementById('tab-certs');
+  const panelProjects = document.getElementById('panelProjects');
+  const panelCerts = document.getElementById('panelCerts');
+
+  function renderTabs() {
+    const showProjects = tabProjects.checked;
+    panelProjects.classList.toggle('hidden', !showProjects);
+    panelProjects.classList.toggle('block', showProjects);
+
+    panelCerts.classList.toggle('hidden', showProjects);
+    panelCerts.classList.toggle('block', !showProjects);
+  }
+
+  tabProjects.addEventListener('change', renderTabs);
+  tabCerts.addEventListener('change', renderTabs);
+
+  // initial
+  renderTabs();
+</script>
 </body>
 </html>
